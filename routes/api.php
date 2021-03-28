@@ -21,3 +21,4 @@ Route::apiresource('foods', 'FoodController')->middleware('Foods');
 // Route::post('register', 'RegisterController@register');
 Route::apiresource('products', 'ProductsController')->middleware('Products');
 Route::apiresource('category', 'CategoryController')->middleware('Category');
+Route::apiresource('posts', 'PostsController')->middleware('posts');

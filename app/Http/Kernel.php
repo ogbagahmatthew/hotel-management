@@ -66,6 +66,7 @@ class Kernel extends HttpKernel
         'Foods' => \App\Http\Middleware\Foods::class,
         'Products'=>\App\Http\Middleware\Products::class,
         'Category'=>\App\Http\Middleware\Category::class,
+        'posts'=>\App\Http\Middleware\posts::class,
     ];
 
     /**

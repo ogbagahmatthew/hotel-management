@@ -13,10 +13,17 @@ class PostsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('posts');
+    }
     public function index()
     {
-        $categories = Category::with('children')->whereNull('parent_id')->get();
-        return response()->json($category, 200)->withCategories($categories);
+        // $categories = Category::with('children')->whereNull('parent_id')->get();
+        // return response()->json($category, 200)->withCategories($categories);
+        // return 555;
+        $posts=posts::all();
+        return response()->json($posts, 200);
     }
 
     /**
@@ -50,7 +57,7 @@ class PostsController extends Controller
     $validatedData['user_id'] = Auth::id();
     $validatedData['slug'] = Str::slug($validatedData['slug'], '-');
 
-    $post = Post::create($validatedData);
+    $posts = Posts::create($validatedData);
     }
 
     /**
@@ -72,13 +79,13 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        if ($post->user_id != Auth::id()) {
+        if ($posts->user_id != Auth::id()) {
             return redirect()->back();
           }
     
           $categories = Category::with('children')->whereNull('parent_id')->get();
     
-          return response()->json($category, 201)->withPost($post)->withCategories($categories);
+          return response()->json($category, 201)->withPost($posts)->withCategories($categories);
     }
 
     /**
@@ -104,7 +111,7 @@ class PostsController extends Controller
         if ($category->children) {
             foreach ($category->children()->with('posts')->get() as $child) {
                 foreach ($child->posts as $post) {
-                    $post->update(['category_id' => NULL]);
+                    $posts->update(['category_id' => NULL]);
                 }
             }
             
