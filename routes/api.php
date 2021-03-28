@@ -18,4 +18,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 Route::apiresource('bookings', 'BookingsController')->middleware('Bookings');
 Route::apiresource('foods', 'FoodController')->middleware('Foods');
-Route::post('register', 'RegisterController@register');
+// Route::post('register', 'RegisterController@register');
+Route::apiresource('products', 'ProductsController')->middleware('Products');
+Route::apiresource('category', 'CategoryController')->middleware('Category');

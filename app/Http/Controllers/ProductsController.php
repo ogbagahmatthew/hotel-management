@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\products;
 
 class ProductsController extends Controller
 {
@@ -11,9 +12,14 @@ class ProductsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('Products');
+    }
     public function index()
     {
-        //
+        $products=products::with('Category');
+        return response()->json($products, 200);
     }
 
     /**
@@ -34,7 +40,28 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // return 555;
+        $this->validate($request, [
+           'name'=>'required',
+           'description'=>'required',
+           'image'=>'nullable',
+           'price'=>'required',
+           'quantity'=>'required',
+           'size'=>'required',
+        //    'category_id'=>'null',
+
+        ]);
+        // return $products;
+        $products=new products();
+        $products->name=$request->input('name');
+        $products->description=$request->input('description');
+        $products->image=$request->input('image');
+        $products->price=$request->input('price');
+        $products->quantity=$request->input('quantity');
+        $products->size=$request->input('size');
+        // $products->category_id=$request->input('category_id');
+        $products->save();
+        return response()->json($products, 201);
     }
 
     /**
@@ -68,7 +95,29 @@ class ProductsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // return 555;
+        $this->validate($request, [
+            'name'=>'required',
+           'description'=>'required',
+           'image'=>'nullable',
+           'price'=>'required',
+           'quantity'=>'required',
+           'size'=>'required',
+        //    'category_id'=>'null',
+
+        ]);
+        // return $products;
+        $products=products::find($id);
+        $products->name=$request->input('name');
+        $products->description=$request->input('description');
+        $products->image=$request->input('image');
+        $products->price=$request->input('price');
+        $products->quantity=$request->input('quantity');
+        $products->size=$request->input('size');
+        // $products->category_id=$request->input('category_id');
+        $products->update();
+        return response()->json($products, 201);
+    
     }
 
     /**
