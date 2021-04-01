@@ -18,7 +18,8 @@ class ProductsController extends Controller
     }
     public function index()
     {
-        $products=products::with('Category');
+        $products=products::all();
+        // ::with('Category');
         return response()->json($products, 200);
     }
 
@@ -116,7 +117,7 @@ class ProductsController extends Controller
         $products->size=$request->input('size');
         // $products->category_id=$request->input('category_id');
         $products->update();
-        return response()->json($products, 201);
+        return response()->json($products, 403);
     
     }
 

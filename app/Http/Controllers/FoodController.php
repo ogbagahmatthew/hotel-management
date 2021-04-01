@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Food;
+// use App\Database;
 
 class FoodController extends Controller
 {
@@ -14,7 +15,9 @@ class FoodController extends Controller
      */
     public function index()
     {
-        $food=Food::all();
+        // $food=Food::orderBy('', 'desc')->paginate(1);
+        $food =Food::orderBy('class_food','desc')->paginate(2);
+        // $food=Database::select('SELECT * FROM food');
         // orderBy('name', 'asc')->get();
         return response()->json(['data'=>$food], 200);
     }
